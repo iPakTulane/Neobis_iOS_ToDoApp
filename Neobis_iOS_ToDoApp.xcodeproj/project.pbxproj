@@ -7,19 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA6C44DA2AF3BB8700FA55FD /* UserDefaultsKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6C44D92AF3BB8700FA55FD /* UserDefaultsKeys.swift */; };
 		BA7870632AF106CB0044783A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7870622AF106CB0044783A /* AppDelegate.swift */; };
 		BA7870652AF106CB0044783A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7870642AF106CB0044783A /* SceneDelegate.swift */; };
 		BA7870672AF106CB0044783A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7870662AF106CB0044783A /* MainViewController.swift */; };
 		BA78706A2AF106CB0044783A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA7870682AF106CB0044783A /* Main.storyboard */; };
 		BA78706C2AF106CD0044783A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA78706B2AF106CD0044783A /* Assets.xcassets */; };
 		BA78706F2AF106CD0044783A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA78706D2AF106CD0044783A /* LaunchScreen.storyboard */; };
-		BA7870772AF11DF20044783A /* Example1.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7870762AF11DF20044783A /* Example1.swift */; };
-		BA7870792AF11E130044783A /* Example2.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA7870782AF11E130044783A /* Example2.swift */; };
-		BA78707B2AF243690044783A /* ext MainVC + Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA78707A2AF243690044783A /* ext MainVC + Table.swift */; };
 		BA78707D2AF243BF0044783A /* TaskItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA78707C2AF243BF0044783A /* TaskItem.swift */; };
+		BA87669D2AF287D600C43E80 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA87669C2AF287D600C43E80 /* TaskViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BA6C44D92AF3BB8700FA55FD /* UserDefaultsKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultsKeys.swift; sourceTree = "<group>"; };
 		BA78705F2AF106CB0044783A /* Neobis_iOS_ToDoApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Neobis_iOS_ToDoApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA7870622AF106CB0044783A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BA7870642AF106CB0044783A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -28,10 +28,8 @@
 		BA78706B2AF106CD0044783A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BA78706E2AF106CD0044783A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BA7870702AF106CD0044783A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BA7870762AF11DF20044783A /* Example1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example1.swift; sourceTree = "<group>"; };
-		BA7870782AF11E130044783A /* Example2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example2.swift; sourceTree = "<group>"; };
-		BA78707A2AF243690044783A /* ext MainVC + Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ext MainVC + Table.swift"; sourceTree = "<group>"; };
 		BA78707C2AF243BF0044783A /* TaskItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskItem.swift; sourceTree = "<group>"; };
+		BA87669C2AF287D600C43E80 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,14 +65,13 @@
 				BA7870622AF106CB0044783A /* AppDelegate.swift */,
 				BA7870642AF106CB0044783A /* SceneDelegate.swift */,
 				BA7870662AF106CB0044783A /* MainViewController.swift */,
-				BA78707A2AF243690044783A /* ext MainVC + Table.swift */,
+				BA87669C2AF287D600C43E80 /* TaskViewController.swift */,
+				BA6C44D92AF3BB8700FA55FD /* UserDefaultsKeys.swift */,
 				BA78707C2AF243BF0044783A /* TaskItem.swift */,
 				BA7870682AF106CB0044783A /* Main.storyboard */,
 				BA78706B2AF106CD0044783A /* Assets.xcassets */,
 				BA78706D2AF106CD0044783A /* LaunchScreen.storyboard */,
 				BA7870702AF106CD0044783A /* Info.plist */,
-				BA7870762AF11DF20044783A /* Example1.swift */,
-				BA7870782AF11E130044783A /* Example2.swift */,
 			);
 			path = Neobis_iOS_ToDoApp;
 			sourceTree = "<group>";
@@ -150,12 +147,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA7870772AF11DF20044783A /* Example1.swift in Sources */,
 				BA7870672AF106CB0044783A /* MainViewController.swift in Sources */,
 				BA7870632AF106CB0044783A /* AppDelegate.swift in Sources */,
-				BA78707B2AF243690044783A /* ext MainVC + Table.swift in Sources */,
-				BA7870792AF11E130044783A /* Example2.swift in Sources */,
+				BA87669D2AF287D600C43E80 /* TaskViewController.swift in Sources */,
 				BA7870652AF106CB0044783A /* SceneDelegate.swift in Sources */,
+				BA6C44DA2AF3BB8700FA55FD /* UserDefaultsKeys.swift in Sources */,
 				BA78707D2AF243BF0044783A /* TaskItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
