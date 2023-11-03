@@ -7,6 +7,13 @@
 
 import UIKit
 
+struct UserDefaultsKeys {
+    static let titleDataKey = "TitleDataKey"
+    static let descriptionDataKey = "DescriptionDataKey"
+    static let isDoneDataKey = "IsDoneDataKey"
+    static let positionOnListDataKey = "PositionOnListDataKey"
+}
+
 protocol TaskViewControllerDelegate: AnyObject {
     func saveToDoItems(taskItem: TaskItem)
     func loadToDoItems()

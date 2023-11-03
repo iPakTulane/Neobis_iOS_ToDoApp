@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct TaskItem {
-    var title: String
-    var description: String
-    var isDone: Bool = false
-    var positionOnList: Int
-}
+//struct TaskItem {
+//    var title: String
+//    var description: String
+//    var isDone: Bool = false
+//    var positionOnList: Int
+//}

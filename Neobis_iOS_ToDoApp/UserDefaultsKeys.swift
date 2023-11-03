@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct UserDefaultsKeys {
-    static let titleDataKey = "TitleDataKey"
-    static let descriptionDataKey = "DescriptionDataKey"
-    static let isDoneDataKey = "IsDoneDataKey"
-    static let positionOnListDataKey = "PositionOnListDataKey"
-}
+//struct UserDefaultsKeys {
+//    static let titleDataKey = "TitleDataKey"
+//    static let descriptionDataKey = "DescriptionDataKey"
+//    static let isDoneDataKey = "IsDoneDataKey"
+//    static let positionOnListDataKey = "PositionOnListDataKey"
+//}

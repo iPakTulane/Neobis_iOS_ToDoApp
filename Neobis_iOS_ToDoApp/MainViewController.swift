@@ -7,16 +7,26 @@
 
 import UIKit
 
+struct TaskItem {
+    var title: String
+    var description: String
+    var isDone: Bool = false
+    var positionOnList: Int
+}
+
 class MainViewController: UIViewController {
     
     var taskItem: TaskItem?
+    var taskItemsArray: [TaskItem] = [
+        TaskItem(title: "Task 1", description: "Description 1", isDone: false, positionOnList: 0),
+        TaskItem(title: "Task 2", description: "Description 2", isDone: false, positionOnList: 1),
+        TaskItem(title: "Task 3", description: "Description 3", isDone: false, positionOnList: 2),
+    ]
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
-    
-    var tasks: [TaskItem] = []
-    
+    @IBOutlet weak var isDoneCheckmark: UIImageView!
     
     // MARK: - View Did Load
     override func viewDidLoad() {
@@ -70,19 +80,19 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tasks.count
+        return taskItemsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = tasks[indexPath.row].title
+        cell.textLabel?.text = taskItemsArray[indexPath.row].title
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         //        print("Selected item: \(tasks[indexPath.row])")
         
-        let selectedTask = tasks[indexPath.row]
+        let selectedTask = taskItemsArray[indexPath.row]
         
         // Perform the segue to show the second view controller
         performSegue(withIdentifier: "fromMainToTaskSegue", sender: selectedTask)
@@ -97,6 +107,18 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             }
         }
     }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        tableView.beginUpdates()
+        taskItemsArray.remove(at: indexPath.row)
+        tableView.deleteRows(at: [indexPath], with: .fade)
+        tableView.endUpdates()
+    }
+    
 }
 
 // MARK: - TaskViewControllerDelegate
@@ -117,7 +139,7 @@ extension MainViewController: TaskViewControllerDelegate {
             let taskItem = TaskItem(title: titleData, description: descriptionData, isDone: false, positionOnList: 0)
             
             // Append the loaded taskItem to your tasks array
-            tasks.append(taskItem)
+            taskItemsArray.append(taskItem)
             
             // Reload the table view to display the new data
             tableView.reloadData()
