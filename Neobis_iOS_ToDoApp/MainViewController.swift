@@ -42,15 +42,18 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
-        
-        performSegue(withIdentifier: "fromMainToTaskSegue", sender: self)
-        
+        // Create an instance of the TaskViewController
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let taskViewController = storyboard.instantiateViewController(withIdentifier: "TaskViewControllerIdentifier") as! TaskViewController
         taskViewController.delegate = self
+
+        // Set the modal presentation style to full screen
+        taskViewController.modalPresentationStyle = .fullScreen
+
+        // Present the TaskViewController
         present(taskViewController, animated: true, completion: nil)
-        
     }
+
 }
 
 // MARK: - UITableViewDelegate and UITableViewDataSource
