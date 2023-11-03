@@ -7,13 +7,6 @@
 
 import UIKit
 
-struct TaskItem {
-    var title: String
-    var description: String
-    var isDone: Bool = false
-    var positionOnList: Int
-}
-
 class MainViewController: UIViewController {
     
     var taskItem: TaskItem?
@@ -26,7 +19,6 @@ class MainViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var addButton: UIButton!
-    @IBOutlet weak var isDoneCheckmark: UIImageView!
     
     // MARK: - View Did Load
     override func viewDidLoad() {
@@ -84,8 +76,12 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        cell.textLabel?.text = taskItemsArray[indexPath.row].title
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoCell", for: indexPath) as! ToDoTableViewCell
+        
+        let taskItem = taskItemsArray[indexPath.row]
+        cell.textLabel?.text = taskItem.title
+        cell.detailTextLabel?.text = taskItem.description
+        
         return cell
     }
     
