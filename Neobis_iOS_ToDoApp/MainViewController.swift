@@ -67,10 +67,44 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             loadToDoItems() // Load the task data when the view loads
         }
     }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-            return 1
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if section == 0 {
+            let footerView = UIView()
+            
+            let label = UILabel()
+            
+            if taskItemsArray.isEmpty {
+                label.text  =  "Currently, there is no task to do. Push + button to add a new task on the list."
+            } else {
+                label.text  =  "Push + button to add a new task on the list."
+            }
+            
+            label.textAlignment = .center
+            label.textColor = UIColor.gray // Customize the text color if needed
+            
+            footerView.addSubview(label)
+            label.translatesAutoresizingMaskIntoConstraints = false
+            
+            // Center the label vertically within the footer
+            NSLayoutConstraint.activate([
+                label.centerXAnchor.constraint(equalTo: footerView.centerXAnchor),
+                label.centerYAnchor.constraint(equalTo: footerView.centerYAnchor)
+            ])
+            
+            return footerView
+        }
+        
+        return nil
     }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if section == 0 {
+            return UITableView.automaticDimension
+        }
+        return 0
+    }
+
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if taskItemsArray.isEmpty {
@@ -87,24 +121,6 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
         cell.detailTextLabel?.text = taskItem.description
         return cell
     }
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-////        print("\(taskItemsArray[indexPath.row])")
-//        // Check if the tap was on the isDoneImageView
-//        let cell = tableView.cellForRow(at: indexPath) as? ToDoTableViewCell
-//        let tapPoint = tableView.convert(CGPoint.zero, from: cell)
-//        if let tappedView = cell?.isDoneImageView.hitTest(tapPoint, with: nil) {
-//            if tappedView == cell?.isDoneImageView {
-//                // User tapped the isDoneImageView, prevent row selection
-//                return
-//            }
-//        }
-//        // Handle row selection as needed
-//        let selectedTask = taskItemsArray[indexPath.row]
-//        // Perform the segue to show the task view controller
-//        performSegue(withIdentifier: "fromMainToTaskSegue", sender: selectedTask)
-//    }
-    
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let cell = tableView.cellForRow(at: indexPath) as? ToDoTableViewCell {
