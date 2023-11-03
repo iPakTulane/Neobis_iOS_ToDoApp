@@ -23,19 +23,10 @@ class MainViewController: UIViewController {
     // MARK: - View Did Load
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTableView()
-        tableView.reloadData() // Reload the data immediately
         setupButtonsViews()
-        // Load the task data when the view loads
-        loadToDoItems()
+        setupTableView()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData() // Reload the data when the view appears
-    }
-    
-    
+
     func setupButtonsViews() {
         editButton.layer.zPosition = 1
         addButton.layer.zPosition = 1
@@ -67,32 +58,69 @@ class MainViewController: UIViewController {
 extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func setupTableView() {
-        tableView.dataSource = self
-        tableView.delegate = self
+        if taskItemsArray.isEmpty {
+            tableView.isHidden = true
+        } else {
+            tableView.dataSource = self
+            tableView.delegate = self
+            tableView.reloadData() // Reload the data immediately
+            loadToDoItems() // Load the task data when the view loads
+        }
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+            return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return taskItemsArray.count
+        if taskItemsArray.isEmpty {
+            return 0
+        } else {
+            return taskItemsArray.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ToDoCell", for: indexPath) as! ToDoTableViewCell
-        
         let taskItem = taskItemsArray[indexPath.row]
         cell.textLabel?.text = taskItem.title
         cell.detailTextLabel?.text = taskItem.description
-        
         return cell
     }
     
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+////        print("\(taskItemsArray[indexPath.row])")
+//        // Check if the tap was on the isDoneImageView
+//        let cell = tableView.cellForRow(at: indexPath) as? ToDoTableViewCell
+//        let tapPoint = tableView.convert(CGPoint.zero, from: cell)
+//        if let tappedView = cell?.isDoneImageView.hitTest(tapPoint, with: nil) {
+//            if tappedView == cell?.isDoneImageView {
+//                // User tapped the isDoneImageView, prevent row selection
+//                return
+//            }
+//        }
+//        // Handle row selection as needed
+//        let selectedTask = taskItemsArray[indexPath.row]
+//        // Perform the segue to show the task view controller
+//        performSegue(withIdentifier: "fromMainToTaskSegue", sender: selectedTask)
+//    }
+    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //        print("Selected item: \(tasks[indexPath.row])")
-        
-        let selectedTask = taskItemsArray[indexPath.row]
-        
-        // Perform the segue to show the second view controller
-        performSegue(withIdentifier: "fromMainToTaskSegue", sender: selectedTask)
+        if let cell = tableView.cellForRow(at: indexPath) as? ToDoTableViewCell {
+            // Disable user interaction for isDoneImageView
+            cell.isDoneImageView.isUserInteractionEnabled = false
+
+            // Handle row selection as needed
+            let selectedTask = taskItemsArray[indexPath.row]
+            // Perform the segue to show the task view controller
+            performSegue(withIdentifier: "fromMainToTaskSegue", sender: selectedTask)
+            
+            // After handling row selection, re-enable user interaction for isDoneImageView
+            cell.isDoneImageView.isUserInteractionEnabled = true
+        }
     }
+
     
     // Prepare for segue
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

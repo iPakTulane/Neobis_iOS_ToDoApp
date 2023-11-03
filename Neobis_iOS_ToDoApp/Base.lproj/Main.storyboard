@@ -44,6 +44,9 @@
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="circle" catalog="system" id="OTV-KU-91n">
                                                     <rect key="frame" x="22.166666666666668" y="12.333333333333336" width="19.666666666666664" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
+                                                    <accessibility key="accessibilityConfiguration" identifier="isDoneIdentifier">
+                                                        <accessibilityTraits key="traits" button="YES" image="YES" selected="YES"/>
+                                                    </accessibility>
                                                 </imageView>
                                             </subviews>
                                         </tableViewCellContentView>
