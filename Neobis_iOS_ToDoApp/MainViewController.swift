@@ -12,8 +12,8 @@ class MainViewController: UIViewController {
     var taskItem: TaskItem?
     var taskItemsArray: [TaskItem] = [
         TaskItem(title: "Task 1", description: "Description 1", isDone: false, positionOnList: 0),
-        TaskItem(title: "Task 2", description: "Description 2", isDone: false, positionOnList: 1),
-        TaskItem(title: "Task 3", description: "Description 3", isDone: false, positionOnList: 2),
+//        TaskItem(title: "Task 2", description: "Description 2", isDone: false, positionOnList: 1),
+//        TaskItem(title: "Task 3", description: "Description 3", isDone: false, positionOnList: 2),
     ]
     
     @IBOutlet weak var tableView: UITableView!

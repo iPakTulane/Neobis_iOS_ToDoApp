@@ -14,14 +14,14 @@ protocol TaskViewControllerDelegate: AnyObject {
 
 class TaskViewController: UIViewController {
     
-    var taskItem: TaskItem?
+
     
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
     
     weak var delegate: TaskViewControllerDelegate?
     
-    
+    var taskItem: TaskItem?
     
     // MARK: - View Did Load
     
@@ -63,8 +63,9 @@ class TaskViewController: UIViewController {
 //        // Dismiss the second view controller
 //        self.dismiss(animated: true, completion: nil)
 //    }
+
     
-    @IBAction func saveButtonTapped(_ sender: UIButton) {
+    @IBAction func saveButtonTapped(_ sender: Any) {
         
         // Create the taskItem and pass it to the delegate
         let titleData = titleTextField.text ?? "Title"
@@ -75,13 +76,27 @@ class TaskViewController: UIViewController {
         // Dismiss the second view controller
         self.dismiss(animated: true, completion: nil)
     }
-
     
-    @IBAction func discardButtonTapped(_ sender: UIButton) {
+    
+    @IBAction func discardButtonTapped(_ sender: Any) {
+        // Dismiss the TaskViewController
         self.dismiss(animated: true, completion: nil)
     }
     
+    
+    @IBAction func deleteButtonTapped(_ sender: Any) {
+        titleTextField.text = nil
+        descriptionTextView.text = nil
+        // Dismiss the TaskViewController
+        self.dismiss(animated: true, completion: nil)
+        // Todo_1: To add the transition to the MainVC
+        // Todo_2: To add the deletion of todo item from the list on the MainVC
+    }
 }
+
+
+
+
 
 // MARK: - UITextViewDelegate and UITextFieldDelegate
 
