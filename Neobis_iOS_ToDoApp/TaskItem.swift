@@ -7,9 +7,7 @@
 
 import Foundation
 
-struct TaskItem {
+struct TaskItem: Codable {
     var title: String
     var description: String
-    var isDone: Bool = false
-    var positionOnList: Int
 }

@@ -5,6 +5,7 @@
 //  Created by iPak Tulane on 01/11/23.
 //
 
+
 import UIKit
 
 protocol TaskViewControllerDelegate: AnyObject {
@@ -14,137 +15,107 @@ protocol TaskViewControllerDelegate: AnyObject {
 
 class TaskViewController: UIViewController {
     
-
-    
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
     
+    var taskItems = [TaskItem]()
+    var callback: (() -> ())?
+    var edit: ((TaskItem) -> ())?
+    var toEdit = false
+    
+    var customTitle = ""
+    var customDescription = ""
+    
     weak var delegate: TaskViewControllerDelegate?
-    
-    var taskItem: TaskItem?
-    
-    // MARK: - View Did Load
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Unwrap taskItem safely
-        if let taskItem = taskItem {
-            delegate?.saveToDoItems(taskItem: taskItem)
-            
-            if let titleData = UserDefaults.standard.string(forKey: "TitleDataKey"),
-               let descriptionData = UserDefaults.standard.string(forKey: "DescriptionDataKey") {
-                // Populate your UI elements with the loaded data
-                titleTextField.text = titleData
-                descriptionTextView.text = descriptionData
-            }
-        } else {
-            print("Error: TaskItem is nil in viewDidLoad.")
-        }
+        titleTextField.text = customTitle
+        descriptionTextView.text = customDescription
+        descriptionTextView.textContainerInset = UIEdgeInsets.zero
+        descriptionTextView.textContainer.lineFragmentPadding = 0
         
         setupTextField()
         setupTextView()
+        loadSavedDataFromUserDefaults()
     }
     
-//    @IBAction func saveButtonTapped(_ sender: UIButton) {
-//        
-//        let titleData = titleTextField.text ?? "Title"
-//        let descriptionData = descriptionTextView.text ?? "Description"
-//
-//        let taskItem = TaskItem(title: titleData, description: descriptionData, isDone: false, positionOnList: 0)
-//        
-//        // Save the data to UserDefaults
-//        UserDefaults.standard.set(titleData, forKey: "TitleDataKey")
-//        UserDefaults.standard.set(descriptionData, forKey: "DescriptionDataKey")
-//        
-//        // Save the task using the delegate's method
-//        delegate?.saveToDoItems(taskItem: taskItem)
-//                
-//        // Dismiss the second view controller
-//        self.dismiss(animated: true, completion: nil)
-//    }
-
-    
-    @IBAction func saveButtonTapped(_ sender: Any) {
+    @IBAction func saveButtonPressed(_ sender: Any) {
+        let titleData = titleTextField.text ?? ""
+        let descriptionData = descriptionTextView.text ?? ""
         
-        // Create the taskItem and pass it to the delegate
-        let titleData = titleTextField.text ?? "Title"
-        let descriptionData = descriptionTextView.text ?? "Description"
-        let taskItem = TaskItem(title: titleData, description: descriptionData, isDone: false, positionOnList: 0)
-        delegate?.saveToDoItems(taskItem: taskItem)
+        if !toEdit {
+            let newItem = TaskItem(title: titleData, description: descriptionData)
+            taskItems.append(newItem)
+            saveToDoItems()
+        } else {
+            let editedItem = TaskItem(title: titleData, description: descriptionData)
+            edit?(editedItem)
+            toEdit = false
+        }
         
-        // Dismiss the second view controller
-        self.dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    
-    @IBAction func discardButtonTapped(_ sender: Any) {
-        // Dismiss the TaskViewController
-        self.dismiss(animated: true, completion: nil)
+    @IBAction func cancelButtonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
-    
-    @IBAction func deleteButtonTapped(_ sender: Any) {
-        titleTextField.text = nil
-        descriptionTextView.text = nil
-        // Dismiss the TaskViewController
-        self.dismiss(animated: true, completion: nil)
-        // Todo_1: To add the transition to the MainVC
-        // Todo_2: To add the deletion of todo item from the list on the MainVC
+    func saveToDoItems() {
+        if !toEdit {
+            if let savedData = try? PropertyListEncoder().encode(taskItems) {
+                UserDefaults.standard.set(savedData, forKey: UserDefaultsKeys.toDoList)
+                UserDefaults.standard.set(titleTextField.text, forKey: UserDefaultsKeys.titleDataKey)
+                UserDefaults.standard.set(descriptionTextView.text, forKey: UserDefaultsKeys.descriptionDataKey)
+                callback?()
+            }
+        }
     }
+    
+    func loadSavedDataFromUserDefaults() {
+        if let titleData = UserDefaults.standard.string(forKey: UserDefaultsKeys.titleDataKey),
+           let descriptionData = UserDefaults.standard.string(forKey: UserDefaultsKeys.descriptionDataKey) {
+            titleTextField.text = titleData
+            descriptionTextView.text = descriptionData
+        }
+    }
+    
 }
-
-
-
-
-
-// MARK: - UITextViewDelegate and UITextFieldDelegate
 
 extension TaskViewController: UITextViewDelegate, UITextFieldDelegate {
     
     func setupTextField() {
-        // Set the delegate for titleTextField
         titleTextField.delegate = self
-        
-        // Set the placeholder text for titleTextField
         titleTextField.placeholder = "Title"
         titleTextField.textColor = UIColor.lightGray
         titleTextField.font = .systemFont(ofSize: 15)
-        
-        // Customize the appearance of the descriptionTextView
-        titleTextField.layer.borderWidth = 1.0 // Border width
-        titleTextField.layer.borderColor = UIColor.lightGray.cgColor // Border color
-        titleTextField.layer.cornerRadius = 5.0 // Corner radius (for rounded corners)
-        titleTextField.clipsToBounds = true // Ensure the border doesn't exceed the bounds
+        titleTextField.layer.borderWidth = 1.0
+        titleTextField.layer.borderColor = UIColor.lightGray.cgColor
+        titleTextField.layer.cornerRadius = 5.0
+        titleTextField.clipsToBounds = true
     }
     
     func setupTextView() {
-        // Set the delegate for descriptionTextView
         descriptionTextView.delegate = self
-        
-        // Set the placeholder text for descriptionTextView
         descriptionTextView.text = "Description"
         descriptionTextView.textColor = UIColor.lightGray
         descriptionTextView.font = .systemFont(ofSize: 15)
-            
-        // Customize the appearance of the descriptionTextView
-        descriptionTextView.layer.borderWidth = 1.0 // Border width
-        descriptionTextView.layer.borderColor = UIColor.lightGray.cgColor // Border color
-        descriptionTextView.layer.cornerRadius = 5.0 // Corner radius (for rounded corners)
-        descriptionTextView.clipsToBounds = true // Ensure the border doesn't exceed the bounds
+        descriptionTextView.layer.borderWidth = 1.0
+        descriptionTextView.layer.borderColor = UIColor.lightGray.cgColor
+        descriptionTextView.layer.cornerRadius = 5.0
+        descriptionTextView.clipsToBounds = true
     }
     
-    // UITextFieldDelegate method to clear placeholder text when editing starts
     func textFieldDidBeginEditing(_ textField: UITextField) {
-            titleTextField.placeholder = nil
-            textField.textColor = UIColor.black // Set the text color to black
+        titleTextField.placeholder = nil
+        textField.textColor = UIColor.black
     }
-
-    // UITextViewDelegate method to clear placeholder text when editing starts
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if textView.text == "Description" {
             textView.text = ""
-            textView.textColor = UIColor.black // Set the text color to black
-        } 
+            textView.textColor = UIColor.black
+        }
     }
 }
