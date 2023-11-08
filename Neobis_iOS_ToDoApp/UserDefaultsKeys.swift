@@ -10,5 +10,6 @@ import Foundation
 struct UserDefaultsKeys {
     static let titleDataKey = "TitleDataKey"
     static let descriptionDataKey = "DescriptionDataKey"
+    static let isDoneDataKey = "isDoneDataKey"
     static let toDoList = "ToDoList"
 }
