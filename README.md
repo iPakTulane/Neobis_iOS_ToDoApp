@@ -3,10 +3,10 @@ ToDoApp is a task manager that helps users keep track of their tasks.
 
 ## Design
 
-![start pair](https://github.com/iPakTulane/Neobis_iOS_ToDoApp/assets/117035210/a2f089b1-02e0-4c8b-a7b1-013398bed63a)
+<img width="400" height="400" align="center" alt="title" src="https://github.com/iPakTulane/Neobis_iOS_ToDoApp/assets/117035210/a2f089b1-02e0-4c8b-a7b1-013398bed63a"/>
 
 
-![end pair](https://github.com/iPakTulane/Neobis_iOS_ToDoApp/assets/117035210/6557984d-3b69-4f56-aa04-3f7077b8b290)
+<img width="400" height="400" align="center" alt="title" src="https://github.com/iPakTulane/Neobis_iOS_ToDoApp/assets/117035210/6557984d-3b69-4f56-aa04-3f7077b8b290"/>
 
 
 ## Features
